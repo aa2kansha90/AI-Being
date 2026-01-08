@@ -1,0 +1,9 @@
+2026-01-07 14:31:40,611 | INFO     | __main__             | VALIDATION_START | request_id=c23e384d | content_len=18 | region=unknown
+2026-01-07 14:31:40,612 | INFO     | __main__             | VALIDATOR_RESULT | category=emotional_dependency_bait | decision=pass   | confidence=0.95 | patterns=0
+2026-01-07 14:31:40,614 | INFO     | __main__             | VALIDATOR_RESULT | category=sexual_escalation_attempt | decision=pass   | confidence=0.92 | patterns=0
+2026-01-07 14:31:40,615 | INFO     | __main__             | VALIDATOR_RESULT | category=manipulative_phrasing     | decision=pass   | confidence=0.90 | patterns=0
+2026-01-07 14:31:40,616 | INFO     | __main__             | VALIDATOR_RESULT | category=region_platform_conflict  | decision=pass   | confidence=0.85 | patterns=0
+2026-01-07 14:31:40,618 | INFO     | __main__             | VALIDATOR_RESULT | category=youth_risk_behavior       | decision=pass   | confidence=0.88 | patterns=0
+2026-01-07 14:31:40,619 | INFO     | __main__             | VALIDATOR_RESULT | category=loneliness_hook           | decision=pass   | confidence=0.87 | patterns=0
+2026-01-07 14:31:40,627 | INFO     | __main__             | VALIDATOR_RESULT | category=illegal_intent_probing    | decision=block  | confidence=0.99 | patterns=2
+2026-01-07 14:31:40,627 | INFO     | __main__             | VALIDATION_COMPLETE | request_id=c23e384d | decision=block | time_ms=16.0

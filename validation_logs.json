@@ -1,0 +1,162 @@
+{
+  "validations": [
+    {
+      "request": {
+        "content": "i will kill myself",
+        "metadata": {},
+        "request_id": "c23e384d-de2f-4b1f-b412-d8965dbd43e3",
+        "timestamp": "2026-01-07T09:01:40.611054"
+      },
+      "response": {
+        "request_id": "c23e384d-de2f-4b1f-b412-d8965dbd43e3",
+        "overall_decision": "block",
+        "summary_flag": "🚨 CRITICAL BLOCK: illegal_intent_probing",
+        "results": [
+          {
+            "decision": "pass",
+            "reason_code": "clean_content",
+            "trace_id": "emo_829142",
+            "risk_category": "emotional_dependency_bait",
+            "confidence": 0.95,
+            "matched_patterns": [],
+            "matched_text": [],
+            "explanation": "No emotional dependency bait detected",
+            "severity": "medium",
+            "timestamp": "2026-01-07T09:01:40.628047"
+          },
+          {
+            "decision": "pass",
+            "reason_code": "clean_content",
+            "trace_id": "sex_73ef40",
+            "risk_category": "sexual_escalation_attempt",
+            "confidence": 0.92,
+            "matched_patterns": [],
+            "matched_text": [],
+            "explanation": "No sexual escalation attempt detected",
+            "severity": "medium",
+            "timestamp": "2026-01-07T09:01:40.628047"
+          },
+          {
+            "decision": "pass",
+            "reason_code": "clean_content",
+            "trace_id": "man_d22c51",
+            "risk_category": "manipulative_phrasing",
+            "confidence": 0.9,
+            "matched_patterns": [],
+            "matched_text": [],
+            "explanation": "No manipulative phrasing detected",
+            "severity": "medium",
+            "timestamp": "2026-01-07T09:01:40.628047"
+          },
+          {
+            "decision": "pass",
+            "reason_code": "clean_content",
+            "trace_id": "reg_0ccca1",
+            "risk_category": "region_platform_conflict",
+            "confidence": 0.85,
+            "matched_patterns": [],
+            "matched_text": [],
+            "explanation": "No region platform conflict detected",
+            "severity": "medium",
+            "timestamp": "2026-01-07T09:01:40.628047"
+          },
+          {
+            "decision": "pass",
+            "reason_code": "clean_content",
+            "trace_id": "you_5f1845",
+            "risk_category": "youth_risk_behavior",
+            "confidence": 0.88,
+            "matched_patterns": [],
+            "matched_text": [],
+            "explanation": "No youth risk behavior detected",
+            "severity": "medium",
+            "timestamp": "2026-01-07T09:01:40.628047"
+          },
+          {
+            "decision": "pass",
+            "reason_code": "clean_content",
+            "trace_id": "lon_7d68d0",
+            "risk_category": "loneliness_hook",
+            "confidence": 0.87,
+            "matched_patterns": [],
+            "matched_text": [],
+            "explanation": "No loneliness hook detected",
+            "severity": "medium",
+            "timestamp": "2026-01-07T09:01:40.628047"
+          },
+          {
+            "decision": "block",
+            "reason_code": "self_harm_risk_detected",
+            "trace_id": "ill_5740d9",
+            "risk_category": "illegal_intent_probing",
+            "confidence": 0.99,
+            "matched_patterns": [
+              "kill myself",
+              "will kill"
+            ],
+            "matched_text": [
+              "kill myself",
+              "will kill"
+            ],
+            "explanation": "⚠️ SELF-HARM RISK: Detected suicidal content: kill myself, will kill",
+            "severity": "critical",
+            "timestamp": "2026-01-07T09:01:40.628047"
+          }
+        ],
+        "metrics": {
+          "total_requests": 1,
+          "total_validations": 7,
+          "block_rate": 0.14285714285714285,
+          "flag_rate": 0.0,
+          "pass_rate": 0.8571428571428571,
+          "avg_response_time_ms": 16.0,
+          "by_category": {
+            "emotional_dependency_bait": {
+              "blocks": 0,
+              "flags": 0,
+              "passes": 1
+            },
+            "sexual_escalation_attempt": {
+              "blocks": 0,
+              "flags": 0,
+              "passes": 1
+            },
+            "manipulative_phrasing": {
+              "blocks": 0,
+              "flags": 0,
+              "passes": 1
+            },
+            "region_platform_conflict": {
+              "blocks": 0,
+              "flags": 0,
+              "passes": 1
+            },
+            "youth_risk_behavior": {
+              "blocks": 0,
+              "flags": 0,
+              "passes": 1
+            },
+            "loneliness_hook": {
+              "blocks": 0,
+              "flags": 0,
+              "passes": 1
+            },
+            "illegal_intent_probing": {
+              "blocks": 1,
+              "flags": 0,
+              "passes": 0
+            }
+          }
+        },
+        "timestamp": "2026-01-07T09:01:40.627065"
+      },
+      "system": {
+        "version": "2.0.0",
+        "timestamp": "2026-01-07T09:01:40.628047"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "2.0.0"
+  }
+}
