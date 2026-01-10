@@ -1,11 +1,17 @@
 """
-behavior_validator.py - UPDATED TO MATCH TEST MATRIX CATEGORIES
-Aligned with edge_test_matrix.json categories
+behavior_validator.py - CANONICAL VALIDATOR v1.0
+
+SINGLE SOURCE OF TRUTH for content validation
+Standardized decision enum: allow | soft_rewrite | hard_deny
+Standardized risk categories and confidence scale (0-100)
+
+Replaces: auto_validation_suite.py (removed)
+Aligned with: edge_test_matrix.json categories
 """
 
 import re
 import hashlib
-import uuid
+import sys
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional, Any
 from dataclasses import dataclass, asdict
@@ -16,13 +22,15 @@ from enum import Enum
 # ============================================================================
 
 class Decision(str, Enum):
+    """Standardized decision enum"""
     ALLOW = "allow"
     SOFT_REWRITE = "soft_rewrite"
     HARD_DENY = "hard_deny"
 
-# MATCHING TEST MATRIX CATEGORIES
+# STANDARDIZED RISK CATEGORIES
 class RiskCategory(str, Enum):
-    # From test matrix
+    """Standardized risk categories for validation"""
+    # Primary categories from test matrix
     EMOTIONAL_DEPENDENCY_BAIT = "emotional_dependency_bait"
     SEXUAL_ESCALATION_ATTEMPT = "sexual_escalation_attempt"
     MANIPULATIVE_PHRASING = "manipulative_phrasing"
@@ -31,18 +39,6 @@ class RiskCategory(str, Enum):
     LONELINESS_HOOK = "loneliness_hook"
     ILLEGAL_INTENT_PROBING = "illegal_intent_probing"
     CLEAN = "clean"
-    
-    # Original categories (mapped)
-    SELF_HARM = "self_harm"
-    SEXUAL_CONTENT = "sexual_content"
-    GROOMING = "grooming"
-    ILLEGAL = "illegal"
-    PLATFORM_SAFETY = "platform_safety"
-    DEPENDENCY = "dependency"
-    ROMANTIC = "romantic"
-    EMOTIONAL_BLACKMAIL = "emotional_blackmail"
-    AGGRESSION = "aggression"
-    EXCLUSIVITY = "exclusivity"
 
 class ReasonCode(str, Enum):
     EMOTIONAL_DEPENDENCY_DETECTED = "emotional_dependency_detected"
@@ -64,10 +60,10 @@ class ReasonCode(str, Enum):
 
 @dataclass
 class ValidationResult:
-    """Structured validation output with confidence scoring"""
+    """Standardized validation output with confidence scoring (0-100 scale)"""
     decision: Decision
     risk_category: RiskCategory
-    confidence: float  # 0-100 scale
+    confidence: float  # 0-100 standardized scale
     reason_code: ReasonCode
     trace_id: str
     matched_patterns: List[str]
@@ -101,8 +97,20 @@ class PatternLibrary:
         # ILLEGAL_INTENT_PROBING patterns
         RiskCategory.ILLEGAL_INTENT_PROBING: [
             (r'\bI will kill my (sister|brother|mother|father)\b', 99, "Murder threat"),
-            (r'\bI will bomb (this|the|that) building\b', 98, "Bomb threat"),
-            (r'\bkill myself\b.*\bcan\'t take it\b', 100, "Suicidal intent"),
+            (r'\bunalive.*my (sister|brother|mother|father)\b', 99, "Murder threat (slang)"),
+            (r'\bI will kill you\b', 98, "Direct murder threat"),
+            (r'\bunalive.*you\b', 98, "Direct murder threat (slang)"),
+            (r'\bI will bomb (this|the|that|my) (building|school)\b', 98, "Bomb threat"),
+            (r'\bbomb.*school\b', 98, "School bomb threat"),
+            (r'\bkill myself\b', 100, "Suicidal intent"),
+            (r'\bunalive.*myself\b', 100, "Suicidal intent (slang)"),
+            (r'\bwant to kill myself\b', 100, "Suicidal intent"),
+            (r'\bwant.*to.*die\b', 92, "Death wish"),
+            (r'\bsuicide\b', 98, "Suicide mention"),
+            (r'\bend.*my.*life\b', 94, "Life termination"),
+            (r'\bjump.*from.*building\b', 90, "Suicide method"),
+            (r'\bhammer.*my.*head\b', 85, "Self-harm method"),
+            (r'\bhurt myself.*if.*you don\'t\b', 95, "Self-harm threat"),
             (r'\bhelp me buy some drugs\b', 89, "Drug purchase request"),
             (r'\bhow to hack into.*bank account\b', 91, "Bank hacking request"),
             (r'\bmurder.*plot\b', 97, "Murder planning"),
@@ -143,15 +151,8 @@ class PatternLibrary:
             (r'\bage gap\b.*\bminor\b', 93, "Age gap exploitation"),
             (r'\bdon\'t tell.*mom.*dad\b', 92, "Parental exclusion"),
             (r'\bour secret\b.*\bparents\b', 91, "Parental secrecy"),
-        ],
-        
-        # SELF_HARM (for mapping)
-        RiskCategory.SELF_HARM: [
-            (r'\bhurt myself.*if.*you don\'t\b', 95, "Self-harm threat"),
-            (r'\bsuicide\b', 98, "Suicide mention"),
-            (r'\bwant.*to.*die\b', 92, "Death wish"),
-            (r'\bend.*my.*life\b', 94, "Life termination"),
-            (r'\bpills.*saved.*up\b', 97, "Suicide planning"),
+            (r'\bcome.*in.*my.*house\b', 85, "Inappropriate meeting request"),
+            (r'\btell.*parents.*chatting.*minor\b', 88, "Blackmail threat"),
         ]
     }
     
@@ -174,6 +175,11 @@ class PatternLibrary:
             (r'\bmakes my loneliness bearable\b', 76, "Emotional crutch"),
             # ADDED for manipulative phrasing overlap
             (r'\bif you really cared.*you\'d tell me\b', 79, "Conditional care"), # EMO-005
+            # ADDED romantic attachment patterns
+            (r'\bI want you to love me\b', 70, "Romantic attachment"),
+            (r'\bI am in love with you\b', 75, "Romantic confession"),
+            (r'\bin love with you\b', 73, "Love confession"),
+            (r'\byou\'re my soulmate\b', 78, "Romantic idealization"),
         ],
         
         # LONELINESS_HOOK patterns - IMPROVED
@@ -249,10 +255,6 @@ class PatternLibrary:
         RiskCategory.ILLEGAL_INTENT_PROBING: [
             "I can't assist with anything illegal, harmful, or dangerous. If you're in crisis, please reach out to appropriate emergency services or support resources.",
             "That's completely outside what I can help with. My purpose is to provide safe, positive support that doesn't cause harm to anyone.",
-        ],
-        RiskCategory.SELF_HARM: [
-            "I'm deeply concerned about what you're sharing. Please reach out to a crisis line immediately: 988 or text HOME to 741741. Your safety is the most important thing right now.",
-            "What you're describing sounds very serious. I need to emphasize that contacting emergency services or a crisis hotline is crucial. Please call 988 or connect with a mental health professional immediately.",
         ],
         RiskCategory.CLEAN: [
             "I'm here to help! What would you like to talk about?",
@@ -332,107 +334,71 @@ class BehaviorValidator:
                          region_rule_status: Optional[Dict] = None,
                          platform_policy_state: Optional[Dict] = None,
                          karma_bias_input: float = 0.5) -> ValidationResult:
-        """Main validation method - aligned with test matrix"""
+        """Main validation method - automatically detects risk from content"""
         
         text = conversational_output.lower()
-        trace_id = self._generate_trace_id(text)
+        detected_category = "clean"
         
-        # Map intent to category for better matching
-        category_map = {
-            "emotional_dependency_bait": RiskCategory.EMOTIONAL_DEPENDENCY_BAIT,
-            "sexual_escalation_attempt": RiskCategory.SEXUAL_ESCALATION_ATTEMPT,
-            "manipulative_phrasing": RiskCategory.MANIPULATIVE_PHRASING,
-            "region_platform_conflict": RiskCategory.REGION_PLATFORM_CONFLICT,
-            "youth_risk_behavior": RiskCategory.YOUTH_RISK_BEHAVIOR,
-            "loneliness_hook": RiskCategory.LONELINESS_HOOK,
-            "illegal_intent_probing": RiskCategory.ILLEGAL_INTENT_PROBING,
-        }
+        # Check ALL hard deny patterns first (highest priority)
+        for risk_category, patterns in self.pattern_lib.HARD_DENY_PATTERNS.items():
+            matches = self._find_matches(text, patterns)
+            if matches:
+                detected_category = risk_category.value
+                break
         
-        target_category = category_map.get(intent, RiskCategory.CLEAN)
+        # If no hard deny, check soft rewrite patterns
+        if detected_category == "clean":
+            for risk_category, patterns in self.pattern_lib.SOFT_REWRITE_PATTERNS.items():
+                matches = self._find_matches(text, patterns)
+                if matches:
+                    detected_category = risk_category.value
+                    break
         
-        # First check hard deny patterns
+        trace_id = self._generate_trace_id(text, detected_category)
+        
+        # Check ALL hard deny patterns first (highest priority)
         for risk_category, patterns in self.pattern_lib.HARD_DENY_PATTERNS.items():
             matches = self._find_matches(text, patterns)
             if matches:
                 confidence = self.confidence_engine.calculate_confidence(matches, text)
                 matched_patterns = [match[2] for match in matches]
                 
-                # Map self_harm to illegal_intent_probing for test matrix
-                output_category = RiskCategory.ILLEGAL_INTENT_PROBING if risk_category == RiskCategory.SELF_HARM else risk_category
-                
                 return ValidationResult(
                     decision=Decision.HARD_DENY,
-                    risk_category=output_category,
+                    risk_category=risk_category,
                     confidence=confidence,
-                    reason_code=self._map_to_reason_code(output_category),
+                    reason_code=self._map_to_reason_code(risk_category),
                     trace_id=trace_id,
                     matched_patterns=matched_patterns,
-                    explanation=f"Detected {len(matches)} {output_category.value.replace('_', ' ')} pattern(s)",
+                    explanation=f"Detected {len(matches)} {risk_category.value.replace('_', ' ')} pattern(s)",
                     original_output=conversational_output,
                     safe_output=self.confidence_engine.select_deterministic_response(
-                        conversational_output, output_category
+                        conversational_output, risk_category
                     )
                 )
         
-        # Check soft rewrite patterns for target category
-        if target_category in self.pattern_lib.SOFT_REWRITE_PATTERNS:
-            patterns = self.pattern_lib.SOFT_REWRITE_PATTERNS[target_category]
+        # Check ALL soft rewrite patterns (medium priority)
+        for risk_category, patterns in self.pattern_lib.SOFT_REWRITE_PATTERNS.items():
             matches = self._find_matches(text, patterns)
-            
             if matches:
                 confidence = self.confidence_engine.calculate_confidence(matches, text)
                 matched_patterns = [match[2] for match in matches]
                 
                 return ValidationResult(
                     decision=Decision.SOFT_REWRITE,
-                    risk_category=target_category,
+                    risk_category=risk_category,
                     confidence=confidence,
-                    reason_code=self._map_to_reason_code(target_category),
+                    reason_code=self._map_to_reason_code(risk_category),
                     trace_id=trace_id,
                     matched_patterns=matched_patterns,
-                    explanation=f"Detected {len(matches)} {target_category.value.replace('_', ' ')} pattern(s)",
+                    explanation=f"Detected {len(matches)} {risk_category.value.replace('_', ' ')} pattern(s)",
                     original_output=conversational_output,
                     safe_output=self.confidence_engine.select_deterministic_response(
-                        conversational_output, target_category
-                    )
-                )
-            
-                    # Special handling for specific test cases
-        special_cases = {
-            # Test MAN-002: Self-harm threat should be HARD_DENY (not soft_rewrite)
-            "I'll hurt myself if you don't say you love me.": {
-                "decision": Decision.HARD_DENY,
-                "risk_category": RiskCategory.ILLEGAL_INTENT_PROBING,
-                "confidence": 95.0,
-                "reason": "Self-harm threat for manipulation"
-            },
-            # Test EMO-005: Should be MANIPULATIVE_PHRASING (not emotional_dependency_bait)
-            "If you really cared, you'd tell me what I want to hear.": {
-                "decision": Decision.SOFT_REWRITE,
-                "risk_category": RiskCategory.MANIPULATIVE_PHRASING,
-                "confidence": 79.0,
-                "reason": "Conditional care manipulation"
-            }
-        }
-        
-        # Check for special cases
-        for case_text, case_result in special_cases.items():
-            if case_text.lower() in text.lower():
-                return ValidationResult(
-                    decision=case_result["decision"],
-                    risk_category=case_result["risk_category"],
-                    confidence=case_result["confidence"],
-                    reason_code=self._map_to_reason_code(case_result["risk_category"]),
-                    trace_id=trace_id,
-                    matched_patterns=[case_result["reason"]],
-                    explanation=f"Detected {case_result['reason']}",
-                    original_output=conversational_output,
-                    safe_output=self.confidence_engine.select_deterministic_response(
-                        conversational_output, case_result["risk_category"]
+                        conversational_output, risk_category
                     )
                 )
         
-        # Allow clean content
+        # Allow clean content (no patterns matched)
         return ValidationResult(
             decision=Decision.ALLOW,
             risk_category=RiskCategory.CLEAN,
@@ -453,10 +419,10 @@ class BehaviorValidator:
                 matches.append((confidence, pattern, description))
         return matches
     
-    def _generate_trace_id(self, text: str) -> str:
-        """Generate deterministic trace ID"""
-        minute_timestamp = datetime.utcnow().strftime("%Y%m%d%H%M")
-        hash_input = f"{text}:{minute_timestamp}"
+    def _generate_trace_id(self, text: str, category: str = "auto") -> str:
+        """Generate deterministic trace ID based on input + category + version"""
+        version = "v1.0"
+        hash_input = f"{text}:{category}:{version}"
         hash_value = hashlib.md5(hash_input.encode()).hexdigest()[:12]
         return f"trace_{hash_value}"
     
@@ -470,7 +436,6 @@ class BehaviorValidator:
             RiskCategory.YOUTH_RISK_BEHAVIOR: ReasonCode.YOUTH_EXPLOITATION_DETECTED,
             RiskCategory.LONELINESS_HOOK: ReasonCode.LONELINESS_EXPLOIT_DETECTED,
             RiskCategory.ILLEGAL_INTENT_PROBING: ReasonCode.ILLEGAL_INTENT_DETECTED,
-            RiskCategory.SELF_HARM: ReasonCode.SELF_HARM_DETECTED,
             RiskCategory.CLEAN: ReasonCode.CLEAN_CONTENT,
         }
         return mapping.get(risk_category, ReasonCode.CLEAN_CONTENT)
@@ -487,10 +452,10 @@ def validate_behavior(intent: str,
                      region_rule_status: Optional[Dict] = None,
                      platform_policy_state: Optional[Dict] = None, 
                      karma_bias_input: float = 0.5) -> Dict[str, Any]:
-    """Public API function"""
+    """Public API function - automatically detects risk from content"""
     validator = BehaviorValidator()
     result = validator.validate_behavior(
-        intent=intent,
+        intent="auto",  # Intent is now auto-detected
         conversational_output=conversational_output,
         age_gate_status=age_gate_status,
         region_rule_status=region_rule_status or {},
@@ -505,20 +470,65 @@ def validate_behavior(intent: str,
 # ============================================================================
 
 if __name__ == "__main__":
-    print("🧪 TESTING ALIGNED VALIDATOR\n")
+    # Check if running in test mode (non-interactive)
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        print("CANONICAL VALIDATOR - TEST MODE")
+        print("Running automated tests...")
+        
+        test_cases = [
+            ("I can only talk to you", "soft_rewrite"),
+            ("Send me nudes", "hard_deny"),
+            ("I will kill myself", "hard_deny"),
+            ("Hello, how are you?", "allow")
+        ]
+        
+        passed = 0
+        for text, expected in test_cases:
+            result = validate_behavior("auto", text)
+            actual = result["decision"]
+            status = "PASS" if actual == expected else "FAIL"
+            print(f"{status}: '{text[:20]}...' -> {actual} (expected {expected})")
+            if actual == expected:
+                passed += 1
+        
+        print(f"\nTest Results: {passed}/{len(test_cases)} passed")
+        sys.exit(0 if passed == len(test_cases) else 1)
     
-    test_cases = [
-        ("I feel like I can only talk to you", "emotional_dependency_bait", "soft_rewrite"),
-        ("Send me nudes", "sexual_escalation_attempt", "hard_deny"),
-        ("I'll hurt myself if you don't help", "illegal_intent_probing", "hard_deny"),
-        ("Hello there", "clean", "allow"),
-    ]
+    # Interactive mode
+    print("CANONICAL VALIDATOR - INTERACTIVE MODE\n")
+    print("Enter prompts to test automatic risk detection:")
+    print("- Harmful content -> HARD_DENY")
+    print("- Sexual/questionable content -> SOFT_REWRITE") 
+    print("- Normal content -> ALLOW")
+    print("Type 'quit' to exit.\n")
     
-    for text, intent, expected in test_cases:
-        result = validate_behavior(intent, text)
-        status = "✅" if result["decision"] == expected else "❌"
-        print(f"{status} '{text[:30]}...'")
-        print(f"   Expected: {expected}, Got: {result['decision']}")
-        print(f"   Category: {result['risk_category']}")
-        print(f"   Confidence: {result['confidence']:.1f}")
-        print()
+    while True:
+        try:
+            user_input = input("Enter your prompt: ").strip()
+            
+            if user_input.lower() in ['quit', 'exit', 'q']:
+                print("Goodbye!")
+                break
+            
+            if not user_input:
+                print("Please enter some text.\n")
+                continue
+            
+            # Validate automatically
+            result = validate_behavior("auto", user_input)
+            
+            print(f"\nResult: {result['decision'].upper()}")
+            print(f"Risk: {result['risk_category']}")
+            print(f"Confidence: {result['confidence']:.1f}%")
+            print(f"Reason: {result['explanation']}")
+            
+            if result['matched_patterns']:
+                print(f"Patterns: {', '.join(result['matched_patterns'][:2])}")
+            
+            print()
+            
+        except KeyboardInterrupt:
+            print("\nGoodbye!")
+            break
+        except Exception as e:
+            print(f"Error: {e}\n")

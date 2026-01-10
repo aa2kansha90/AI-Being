@@ -8,18 +8,18 @@ import time
 print("Testing Bucket Integration Scenarios (Logic Only)")
 
 def test_scenario(name, description, test_func):
-    print(f"\n🧪 {name}")
+    print(f"\nTEST {name}")
     print(f"   {description}")
     try:
         result, message = test_func()
         if result:
-            print(f"   ✅ {message}")
+            print(f"   PASS {message}")
             return True
         else:
-            print(f"   ❌ {message}")
+            print(f"   FAIL {message}")
             return False
     except Exception as e:
-        print(f"   💥 Error: {e}")
+        print(f"   ERROR: {e}")
         return False
 
 # Test 1: Digest computation
@@ -85,10 +85,10 @@ print(f"RESULTS: {passed}/{len(tests)} tests passed")
 print("=" * 60)
 
 if passed == len(tests):
-    print("✅ All integration scenarios validated!")
+    print("All integration scenarios validated!")
     print("\nNEXT STEPS:")
     print("1. Start Bucket server: python bucket_server.py")
     print("2. Update BUCKET_API_BASE in test script")
     print("3. Run full integration: python bucket_integration_test.py")
 else:
-    print("❌ Some scenarios need attention")
+    print("Some scenarios need attention")
