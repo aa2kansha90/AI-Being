@@ -71,9 +71,9 @@ def test_deterministic_traces():
     print("=" * 50)
     if all_deterministic:
         print("SUCCESS: All traces are deterministic!")
-        print("✓ Same input → Same trace_id across runs")
-        print("✓ Same input → Same decision across runs") 
-        print("✓ Same input → Same category across runs")
+        print("Same input -> Same trace_id across runs")
+        print("Same input -> Same decision across runs") 
+        print("Same input -> Same category across runs")
     else:
         print("FAILURE: Some traces are non-deterministic!")
     
@@ -86,9 +86,9 @@ def test_deterministic_traces():
     print(f"Sample trace: {trace_id}")
     
     if trace_id.startswith("trace_") and len(trace_id) == 18:
-        print("✓ Format: trace_[12-char-hash]")
+        print("Format: trace_[12-char-hash]")
     else:
-        print("✗ Invalid trace format")
+        print("Invalid trace format")
     
     return all_deterministic
 
@@ -100,3 +100,5 @@ if __name__ == "__main__":
     print("- Implemented: hash(input + category + version)")
     print("- Formula: trace_id = 'trace_' + md5(text:category:version)[:12]")
     print(f"- Verification: {'PASSED' if success else 'FAILED'}")
+    
+    exit(0 if success else 1)

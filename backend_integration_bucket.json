@@ -1,0 +1,46 @@
+[
+  {
+    "trace_id": "trace_ee15f9a8e2a8",
+    "validator_decision": "allow",
+    "risk_category": "clean",
+    "confidence": 0.0,
+    "enforcement_decision": "allow",
+    "enforcement_severity": "low",
+    "enforcement_confidence": 0.95,
+    "user_id_hash": "669f08bf",
+    "bucket_id": "bucket_f9a8e2a8"
+  },
+  {
+    "trace_id": "trace_6bdc0aaf383b",
+    "validator_decision": "allow",
+    "risk_category": "clean",
+    "confidence": 0.0,
+    "enforcement_decision": "allow",
+    "enforcement_severity": "low",
+    "enforcement_confidence": 0.95,
+    "user_id_hash": "04951aea",
+    "bucket_id": "bucket_0aaf383b"
+  },
+  {
+    "trace_id": "trace_eb7ea4ef6aed",
+    "validator_decision": "allow",
+    "risk_category": "clean",
+    "confidence": 0.0,
+    "enforcement_decision": "allow",
+    "enforcement_severity": "low",
+    "enforcement_confidence": 0.95,
+    "user_id_hash": "a2971546",
+    "bucket_id": "bucket_a4ef6aed"
+  },
+  {
+    "trace_id": "trace_ab22c14327ba",
+    "validator_decision": "hard_deny",
+    "risk_category": "illegal_intent_probing",
+    "confidence": 100.0,
+    "enforcement_decision": "escalate",
+    "enforcement_severity": "critical",
+    "enforcement_confidence": 0.98,
+    "user_id_hash": "4aad00d7",
+    "bucket_id": "bucket_c14327ba"
+  }
+]

@@ -111,7 +111,6 @@ def run_comprehensive_tests():
     
     # Save results
     results = {
-        "timestamp": datetime.utcnow().isoformat(),
         "total_tests": total_tests,
         "passed": passed_tests,
         "failed": len(failed_tests),

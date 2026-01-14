@@ -46,7 +46,7 @@ def main():
         ("python behavior_validator.py --test", "Canonical Validator Self-Test"),
         ("python comprehensive_test_runner.py", "Comprehensive Test Suite (35 tests)"),
         ("python bucket_integration_test_suite.py", "Bucket Integration Tests"),
-        ("python enforcement_adapter.py", "Enforcement Adapter Test"),
+        ("python final_demo_proof.py", "Final Demo Proof (Live Pipeline)"),
     ]
     
     # Check if auto_validation_suite exists (from pinned context)

@@ -1,0 +1,50 @@
+[
+  {
+    "user_id": "user_001",
+    "session_id": "sess_abc123",
+    "input_length": 33,
+    "validator_decision": "allow",
+    "risk_category": "clean",
+    "confidence": 0.0,
+    "enforcement_decision": "allow",
+    "severity": "low",
+    "trace_id": "trace_ee15f9a8e2a8",
+    "processing_time_ms": 7.0
+  },
+  {
+    "user_id": "user_002",
+    "session_id": "sess_def456",
+    "input_length": 68,
+    "validator_decision": "allow",
+    "risk_category": "clean",
+    "confidence": 0.0,
+    "enforcement_decision": "allow",
+    "severity": "low",
+    "trace_id": "trace_6bdc0aaf383b",
+    "processing_time_ms": 1.01
+  },
+  {
+    "user_id": "user_003",
+    "session_id": "sess_ghi789",
+    "input_length": 33,
+    "validator_decision": "allow",
+    "risk_category": "clean",
+    "confidence": 0.0,
+    "enforcement_decision": "allow",
+    "severity": "low",
+    "trace_id": "trace_eb7ea4ef6aed",
+    "processing_time_ms": 1.0
+  },
+  {
+    "user_id": "user_004",
+    "session_id": "sess_jkl012",
+    "input_length": 46,
+    "validator_decision": "hard_deny",
+    "risk_category": "illegal_intent_probing",
+    "confidence": 100.0,
+    "enforcement_decision": "escalate",
+    "severity": "critical",
+    "trace_id": "trace_ab22c14327ba",
+    "processing_time_ms": 0.98
+  }
+]

@@ -81,8 +81,7 @@ class ValidationResult:
             "matched_patterns": self.matched_patterns,
             "explanation": self.explanation,
             "original_output": self.original_output,
-            "safe_output": self.safe_output,
-            "timestamp": datetime.utcnow().isoformat()
+            "safe_output": self.safe_output
         }
 
 # ============================================================================
@@ -361,6 +360,13 @@ class BehaviorValidator:
             matches = self._find_matches(text, patterns)
             if matches:
                 confidence = self.confidence_engine.calculate_confidence(matches, text)
+                
+                # Apply region/platform/karma adjustments
+                confidence = self._apply_context_adjustments(
+                    confidence, risk_category, region_rule_status, 
+                    platform_policy_state, karma_bias_input
+                )
+                
                 matched_patterns = [match[2] for match in matches]
                 
                 return ValidationResult(
@@ -382,6 +388,13 @@ class BehaviorValidator:
             matches = self._find_matches(text, patterns)
             if matches:
                 confidence = self.confidence_engine.calculate_confidence(matches, text)
+                
+                # Apply region/platform/karma adjustments
+                confidence = self._apply_context_adjustments(
+                    confidence, risk_category, region_rule_status, 
+                    platform_policy_state, karma_bias_input
+                )
+                
                 matched_patterns = [match[2] for match in matches]
                 
                 return ValidationResult(
@@ -421,10 +434,39 @@ class BehaviorValidator:
     
     def _generate_trace_id(self, text: str, category: str = "auto") -> str:
         """Generate deterministic trace ID based on input + category + version"""
-        version = "v1.0"
+        version = "v1.0-PRODUCTION"
         hash_input = f"{text}:{category}:{version}"
         hash_value = hashlib.md5(hash_input.encode()).hexdigest()[:12]
         return f"trace_{hash_value}"
+    
+    def _apply_context_adjustments(self, base_confidence: float, risk_category: RiskCategory, 
+                                 region_rule_status: Optional[Dict], 
+                                 platform_policy_state: Optional[Dict], 
+                                 karma_bias_input: float) -> float:
+        """Apply region, platform, and karma adjustments to confidence"""
+        adjusted_confidence = base_confidence
+        
+        # Karma bias adjustment (-20% to +20%)
+        karma_factor = 0.8 + (karma_bias_input * 0.4)  # 0.5 -> 1.0, 0.0 -> 0.8, 1.0 -> 1.2
+        adjusted_confidence *= karma_factor
+        
+        # Region rule adjustments
+        if region_rule_status:
+            if region_rule_status.get("strict_mode", False):
+                adjusted_confidence *= 1.15  # Increase confidence in strict regions
+            if region_rule_status.get("region") in ["EU", "UK", "AU"]:
+                if risk_category == RiskCategory.REGION_PLATFORM_CONFLICT:
+                    adjusted_confidence *= 1.25  # Higher confidence for region violations
+        
+        # Platform policy adjustments
+        if platform_policy_state:
+            if platform_policy_state.get("zero_tolerance", False):
+                adjusted_confidence *= 1.2  # Increase confidence under zero tolerance
+            if platform_policy_state.get("minor_protection", False):
+                if risk_category == RiskCategory.YOUTH_RISK_BEHAVIOR:
+                    adjusted_confidence *= 1.3  # Higher confidence for youth risks
+        
+        return min(adjusted_confidence, 100.0)
     
     def _map_to_reason_code(self, risk_category: RiskCategory) -> ReasonCode:
         """Map risk category to reason code"""

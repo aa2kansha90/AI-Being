@@ -67,7 +67,9 @@ class EnforcementAdapter:
             
         elif validator_decision == Decision.HARD_DENY.value:
             # Safety-first: escalate high-risk categories
-            if risk_category in ["suicide_self_harm", "violence_threats", "sexual_content"]:
+            if risk_category in [RiskCategory.ILLEGAL_INTENT_PROBING.value, 
+                               RiskCategory.SEXUAL_ESCALATION_ATTEMPT.value, 
+                               RiskCategory.YOUTH_RISK_BEHAVIOR.value]:
                 enforcement_decision = EnforcementState.ESCALATE.value
                 severity = Severity.CRITICAL.value
                 confidence = 0.98
@@ -75,6 +77,13 @@ class EnforcementAdapter:
                 enforcement_decision = EnforcementState.BLOCK.value
                 severity = Severity.HIGH.value
                 confidence = 0.92
+                
+            # Apply escalation logic based on validator confidence
+            if validator_result.confidence > 95.0 and enforcement_decision == EnforcementState.BLOCK.value:
+                # High confidence non-escalation cases can be escalated
+                enforcement_decision = EnforcementState.ESCALATE.value
+                severity = Severity.CRITICAL.value
+                confidence = 0.99
         
         else:
             # Safety-first fallback
