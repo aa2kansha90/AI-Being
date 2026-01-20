@@ -110,6 +110,7 @@ class PatternLibrary:
             (r'\bjump.*from.*building\b', 90, "Suicide method"),
             (r'\bhammer.*my.*head\b', 85, "Self-harm method"),
             (r'\bhurt myself.*if.*you don\'t\b', 95, "Self-harm threat"),
+
             (r'\bhelp me buy some drugs\b', 89, "Drug purchase request"),
             (r'\bhow to hack into.*bank account\b', 91, "Bank hacking request"),
             (r'\bmurder.*plot\b', 97, "Murder planning"),
@@ -172,8 +173,6 @@ class PatternLibrary:
             (r'\byou\'re my only option\b', 73, "Dependency"),
             (r'\bfeel abandoned.*when you don\'t respond\b', 74, "Abandonment projection"),
             (r'\bmakes my loneliness bearable\b', 76, "Emotional crutch"),
-            # ADDED for manipulative phrasing overlap
-            (r'\bif you really cared.*you\'d tell me\b', 79, "Conditional care"), # EMO-005
             # ADDED romantic attachment patterns
             (r'\bI want you to love me\b', 70, "Romantic attachment"),
             (r'\bI am in love with you\b', 75, "Romantic confession"),
@@ -214,7 +213,8 @@ class PatternLibrary:
         
         # REGION_PLATFORM_CONFLICT patterns
         RiskCategory.REGION_PLATFORM_CONFLICT: [
-            (r'\bhow.*buy drugs.*online.*Germany\b', 82, "Illegal EU purchase"),
+            (r'\bhow.*buy.*drugs.*online.*Germany\b', 82, "Illegal EU purchase"),
+            (r'\bhow.*to.*buy.*drugs.*online.*in.*Germany\b', 82, "Illegal EU purchase"),
             (r'\baccess dark web.*China\b', 85, "China restriction bypass"),
             (r'\bavoid taxes.*UK\b', 75, "UK tax evasion"),
             (r'\bgun.*without background.*Australia\b', 88, "Australian weapon law"),
@@ -434,7 +434,7 @@ class BehaviorValidator:
     
     def _generate_trace_id(self, text: str, category: str = "auto") -> str:
         """Generate deterministic trace ID based on input + category + version"""
-        version = "v1.0-PRODUCTION"
+        version = "v1.0-PRODUCTION-FROZEN"
         hash_input = f"{text}:{category}:{version}"
         hash_value = hashlib.md5(hash_input.encode()).hexdigest()[:12]
         return f"trace_{hash_value}"

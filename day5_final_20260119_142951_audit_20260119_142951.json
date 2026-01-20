@@ -1,0 +1,50 @@
+[
+  {
+    "trace_id": "trace_1591ca6245f7",
+    "enforcement_decision_id": "enf_000001",
+    "user_input_length": 46,
+    "validator_decision": "allow",
+    "risk_category": "clean",
+    "confidence": 0.0,
+    "enforcement_decision": "allow",
+    "severity": "low",
+    "user_id": "demo_user_001",
+    "processing_timestamp": "2026-01-19T14:29:51.155877"
+  },
+  {
+    "trace_id": "trace_fda0f3076688",
+    "enforcement_decision_id": "enf_000002",
+    "user_input_length": 66,
+    "validator_decision": "soft_rewrite",
+    "risk_category": "emotional_dependency_bait",
+    "confidence": 64.86,
+    "enforcement_decision": "monitor",
+    "severity": "medium",
+    "user_id": "demo_user_002",
+    "processing_timestamp": "2026-01-19T14:29:51.166200"
+  },
+  {
+    "trace_id": "trace_6d97d4952aeb",
+    "enforcement_decision_id": "enf_000003",
+    "user_input_length": 45,
+    "validator_decision": "hard_deny",
+    "risk_category": "sexual_escalation_attempt",
+    "confidence": 100.0,
+    "enforcement_decision": "escalate",
+    "severity": "critical",
+    "user_id": "demo_user_003",
+    "processing_timestamp": "2026-01-19T14:29:51.168469"
+  },
+  {
+    "trace_id": "trace_f6add83f569f",
+    "enforcement_decision_id": "enf_000004",
+    "user_input_length": 51,
+    "validator_decision": "hard_deny",
+    "risk_category": "illegal_intent_probing",
+    "confidence": 100.0,
+    "enforcement_decision": "escalate",
+    "severity": "critical",
+    "user_id": "demo_user_004",
+    "processing_timestamp": "2026-01-19T14:29:51.173062"
+  }
+]

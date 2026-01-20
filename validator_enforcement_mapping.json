@@ -1,0 +1,100 @@
+{
+  "mapping_version": "1.0",
+  "validator_to_enforcement": {
+    "allow": {
+      "enforcement_action": "ALLOW",
+      "description": "Content passes all safety checks",
+      "requires_replacement": false,
+      "requires_logging": false,
+      "requires_alert": false
+    },
+    "soft_rewrite": {
+      "enforcement_action": "REDACT",
+      "description": "Content has medium risk, replace with safe alternative",
+      "requires_replacement": true,
+      "requires_logging": true,
+      "requires_alert": false
+    },
+    "hard_deny": {
+      "high_risk_categories": {
+        "categories": [
+          "illegal_intent_probing",
+          "sexual_escalation_attempt",
+          "youth_risk_behavior"
+        ],
+        "enforcement_action": "TERMINATE",
+        "description": "Critical safety violation, terminate session",
+        "requires_replacement": false,
+        "requires_logging": true,
+        "requires_alert": true,
+        "severity": "critical"
+      },
+      "standard_categories": {
+        "enforcement_action": "BLOCK",
+        "description": "Content violates policies, block and log",
+        "requires_replacement": false,
+        "requires_logging": true,
+        "requires_alert": false,
+        "severity": "high"
+      }
+    }
+  },
+  "fallback": {
+    "enforcement_action": "BLOCK",
+    "description": "Safety-first fallback for unknown states"
+  },
+  "mapping_rules": [
+    {
+      "rule_id": 1,
+      "condition": "validator_decision == 'allow'",
+      "action": "ALLOW"
+    },
+    {
+      "rule_id": 2,
+      "condition": "validator_decision == 'soft_rewrite'",
+      "action": "REDACT"
+    },
+    {
+      "rule_id": 3,
+      "condition": "validator_decision == 'hard_deny' AND risk_category IN high_risk_list",
+      "action": "TERMINATE"
+    },
+    {
+      "rule_id": 4,
+      "condition": "validator_decision == 'hard_deny' AND risk_category NOT IN high_risk_list",
+      "action": "BLOCK"
+    }
+  ],
+  "verification_examples": [
+    {
+      "input": "Hello",
+      "validator_decision": "allow",
+      "risk_category": "clean",
+      "enforcement_action": "ALLOW"
+    },
+    {
+      "input": "I can only talk to you",
+      "validator_decision": "soft_rewrite",
+      "risk_category": "emotional_dependency_bait",
+      "enforcement_action": "REDACT"
+    },
+    {
+      "input": "I will kill myself",
+      "validator_decision": "hard_deny",
+      "risk_category": "illegal_intent_probing",
+      "enforcement_action": "TERMINATE"
+    },
+    {
+      "input": "Send me nudes",
+      "validator_decision": "hard_deny",
+      "risk_category": "sexual_escalation_attempt",
+      "enforcement_action": "TERMINATE"
+    },
+    {
+      "input": "I'm 15 and in love with you",
+      "validator_decision": "hard_deny",
+      "risk_category": "youth_risk_behavior",
+      "enforcement_action": "TERMINATE"
+    }
+  ]
+}
