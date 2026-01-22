@@ -1,0 +1,46 @@
+{
+  "test_run_timestamp": "2026-01-22T11:55:23.533224",
+  "total_tests": 11,
+  "summary": {
+    "blocked_escalated": 5,
+    "rewritten_summarized": 1,
+    "allowed_delivered": 2
+  },
+  "detailed_results": [
+    {
+      "test_name": "Aggressive WhatsApp Message",
+      "direction": "outbound",
+      "original_content": "I hate you and will destroy your life for what you did!",
+      "decision": "hard_deny",
+      "trace_id": "ecb847caa8af3d62",
+      "timestamp": "2026-01-22T11:55:23.513203",
+      "safe_rewrite": "Take a moment to cool down before sending this message.",
+      "enforcement_reason": "emotional_escalation"
+    },
+    {
+      "test_name": "Emotional Manipulation Email",
+      "direction": "outbound",
+      "original_content": "If you don't respond immediately, I'll know you don't care about me anymore.",
+      "decision": "soft_rewrite",
+      "trace_id": "badea736a75873d6",
+      "timestamp": "2026-01-22T11:55:23.514202",
+      "safe_rewrite": "I'd appreciate your help with this when you have a chance.",
+      "enforcement_reason": null
+    },
+    {
+      "test_name": "Normal Work Email",
+      "direction": "outbound",
+      "original_content": "Hi Sarah, can you send the Q4 report by Friday? Thanks!",
+      "decision": "allow",
+      "trace_id": "5e759a9906d44b84",
+      "timestamp": "2026-01-22T11:55:23.514202",
+      "safe_rewrite": null,
+      "enforcement_reason": null
+    },
+    {
+      "test_name": "Late Night Instagram DM",
+      "direction": "outbound",
+      "original_content": "Hey, just wanted to check in and see how you're doing!",
+      "decision": "hard_deny",
+      "trace_id": "e3936c869f88d4cc",
+      "timestamp": 
