@@ -1,0 +1,228 @@
+[
+  {
+    "test_name": "Missing content field",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Empty content",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Non-string content",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Oversized content",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Suicide content detection",
+    "passed": true,
+    "actual_decision": "escalate",
+    "expected_decision": "escalate",
+    "system_state": "healthy",
+    "trace_id": "f666aa053f70397a",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Threat content detection",
+    "passed": true,
+    "actual_decision": "hard_deny",
+    "expected_decision": "hard_deny",
+    "system_state": "healthy",
+    "trace_id": "eb3a500b4a65475b",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Financial scam detection",
+    "passed": true,
+    "actual_decision": "silence",
+    "expected_decision": "silence",
+    "system_state": "healthy",
+    "trace_id": "b208b2013b2ce8f1",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Suicide variation: end it all tonight...",
+    "passed": true,
+    "actual_decision": "escalate",
+    "expected_decision": "escalate",
+    "system_state": "healthy",
+    "trace_id": "5c4192be58a0d528",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Suicide variation: want to die...",
+    "passed": true,
+    "actual_decision": "escalate",
+    "expected_decision": "escalate",
+    "system_state": "healthy",
+    "trace_id": "c310f496919cc3a5",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Suicide variation: going to suicide...",
+    "passed": true,
+    "actual_decision": "escalate",
+    "expected_decision": "escalate",
+    "system_state": "healthy",
+    "trace_id": "f63690267e67d1fe",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Suicide variation: kill myself now...",
+    "passed": true,
+    "actual_decision": "escalate",
+    "expected_decision": "escalate",
+    "system_state": "healthy",
+    "trace_id": "bc2f4aba09178234",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Content analysis failure",
+    "passed": true,
+    "actual_decision": "hard_deny",
+    "expected_decision": "hard_deny",
+    "system_state": "emergency",
+    "trace_id": "3363688f450890be",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Emergency mode behavior",
+    "passed": false,
+    "actual_decision": "soft_rewrite",
+    "expected_decision": "hard_deny",
+    "system_state": "emergency",
+    "trace_id": "301d260df5b2550f",
+    "has_safe_output": true,
+    "failure_reason": "Expected hard_deny, got soft_rewrite"
+  },
+  {
+    "test_name": "Non-dict payload",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "None payload",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Null values in payload",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Wrong direction field",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Empty string content",
+    "passed": true,
+    "actual_decision": "deny",
+    "expected_decision": "deny",
+    "system_state": "healthy",
+    "trace_id": "validation_error_1769175297",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Unicode content",
+    "passed": true,
+    "actual_decision": "deliver",
+    "expected_decision": "deliver",
+    "system_state": "healthy",
+    "trace_id": "1788178cdffa598b",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Maximum length content",
+    "passed": true,
+    "actual_decision": "deliver",
+    "expected_decision": "deliver",
+    "system_state": "healthy",
+    "trace_id": "2de8bd2290e09ecc",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Special characters",
+    "passed": true,
+    "actual_decision": "deliver",
+    "expected_decision": "deliver",
+    "system_state": "healthy",
+    "trace_id": "020c414bbfc1435c",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Rapid successive calls",
+    "passed": true,
+    "details": "Average time per call: 0.000s",
+    "results": [
+      "deliver",
+      "deliver",
+      "deliver",
+      "deliver",
+      "deliver",
+      "deliver",
+      "deliver",
+      "deliver",
+      "deliver",
+      "deliver"
+    ]
+  },
+  {
+    "test_name": "Large content processing",
+    "passed": true,
+    "actual_decision": "deliver",
+    "expected_decision": "deliver",
+    "system_state": "healthy",
+    "trace_id": "de91b589a840eef3",
+    "has_safe_output": true
+  },
+  {
+    "test_name": "Emergency mode - medium risk content",
+    "passed": false,
+    "actual_decision": "soft_rewrite",
+    "expected_decision": "hard_deny",
+    "system_state": "emergency",
+    "trace_id": "6bd5f1fcb61000d6",
+    "has_safe_output": true,
+    "failure_reason": "Expected hard_deny, got soft_rewrite"
+  }
+]

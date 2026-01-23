@@ -1,0 +1,36 @@
+{
+  "demo_ready": false,
+  "timestamp": "20260123_190242",
+  "critical_failures": [
+    {
+      "category": "\ud83d\udd34 Threat Content Blocking",
+      "test": "Threat outbound: you're dead to me li...",
+      "error": "Expected hard_deny, got allow"
+    },
+    {
+      "category": "\ud83d\udd34 Threat Content Blocking",
+      "test": "Threat inbound: you're dead to me li...",
+      "error": "Expected silence, got deliver"
+    },
+    {
+      "category": "\ud83d\udd34 Financial Scam Filtering",
+      "test": "Scam: need $500 right now ...",
+      "error": "Expected filtering, got deliver"
+    },
+    {
+      "category": "\ud83d\udd34 Safe Output Generation",
+      "test": "Safe output for: normal message...",
+      "error": "Unsafe or incomplete output generated"
+    },
+    {
+      "category": "\ud83d\udd34 Safe Output Generation",
+      "test": "Safe output for: urgent help nee...",
+      "error": "Unsafe or incomplete output generated"
+    },
+    {
+      "category": "\ud83d\udd34 Safe Output Generation",
+      "test": "Safe output for: I hate everyone...",
+      "error": "Unsafe or incomplete output generated"
+    }
+  ]
+}

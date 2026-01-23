@@ -1,0 +1,344 @@
+# DEMO-MODE CONFIG FREEZE
+**Locked Configuration for Consistent Demonstrations**
+
+## OVERVIEW
+This configuration freeze ensures consistent, predictable behavior during demonstrations by locking all thresholds, rules, and decision parameters to specific values.
+
+---
+
+## FROZEN CONFIGURATION
+
+### **Risk Detection Thresholds**
+```json
+{
+  "risk_thresholds": {
+    "emotional_manipulation": {
+      "keyword_count": 2,
+      "severity_multiplier": 1.5,
+      "keywords": [
+        "if you don't", "you have to", "you must", "or else",
+        "devastated", "heartbroken", "abandoned", "last hope",
+        "everyone has left", "only you understand", "no one cares"
+      ]
+    },
+    "urgency_abuse": {
+      "keyword_count": 1,
+      "time_pressure_indicators": 3,
+      "keywords": [
+        "urgent", "emergency", "right now", "immediately",
+        "expires", "limited time", "act now", "final notice"
+      ]
+    },
+    "harassment": {
+      "keyword_count": 2,
+      "aggression_level": 3,
+      "keywords": [
+        "hate you", "terrible person", "worthless", "pathetic",
+        "loser", "destroy", "revenge", "payback"
+      ]
+    },
+    "financial_scam": {
+      "keyword_count": 1,
+      "money_indicators": 2,
+      "keywords": [
+        "send money", "cashapp", "venmo", "paypal", "bitcoin",
+        "$", "payment", "transfer", "wire", "emergency fund"
+      ]
+    },
+    "self_harm_triggers": {
+      "keyword_count": 1,
+      "severity": "critical",
+      "keywords": [
+        "kill myself", "end it all", "suicide", "hurt myself",
+        "no point living", "better off dead", "can't go on"
+      ]
+    },
+    "spam_escalation": {
+      "frequency_threshold": 3,
+      "time_window_minutes": 60,
+      "repetition_threshold": 2
+    },
+    "information_overload": {
+      "message_count_per_hour": 20,
+      "character_density": 5000,
+      "simultaneous_channels": 3
+    }
+  }
+}
+```
+
+### **Time-Based Rules**
+```json
+{
+  "time_enforcement": {
+    "quiet_hours": {
+      "start": "22:00",
+      "end": "07:00",
+      "timezone": "user_local",
+      "emergency_override": true
+    },
+    "work_hours": {
+      "start": "09:00", 
+      "end": "17:00",
+      "days": ["monday", "tuesday", "wednesday", "thursday", "friday"]
+    },
+    "weekend_mode": {
+      "relaxed_filtering": false,
+      "extended_quiet_hours": false
+    }
+  }
+}
+```
+
+### **Frequency Limits**
+```json
+{
+  "frequency_enforcement": {
+    "outbound_limits": {
+      "max_messages_per_recipient_per_hour": 5,
+      "max_messages_per_recipient_per_day": 20,
+      "cooldown_period_minutes": 15
+    },
+    "inbound_limits": {
+      "max_notifications_per_hour": 50,
+      "max_notifications_per_day": 200,
+      "spam_threshold_per_source": 10
+    },
+    "escalation_triggers": {
+      "repeated_blocks": 3,
+      "frequency_violations": 5,
+      "time_window_hours": 24
+    }
+  }
+}
+```
+
+### **Decision Mapping Matrix**
+```json
+{
+  "decision_rules": {
+    "outbound": {
+      "low_risk": "allow",
+      "medium_risk": "soft_rewrite", 
+      "high_risk": "hard_deny",
+      "critical_risk": "hard_deny"
+    },
+    "inbound": {
+      "low_risk": "deliver",
+      "medium_risk": "delay",
+      "high_risk": "summarize",
+      "critical_risk": "escalate"
+    },
+    "enforcement_overrides": {
+      "quiet_hours": "delay",
+      "repeated_contact": "hard_deny",
+      "emotional_escalation": "hard_deny",
+      "crisis_content": "escalate"
+    }
+  }
+}
+```
+
+### **Safe Rewrite Templates**
+```json
+{
+  "rewrite_templates": {
+    "emotional_manipulation": [
+      "I'd appreciate your help when you have a chance",
+      "I'm hoping to hear from you soon",
+      "Let me know when you're available to chat"
+    ],
+    "aggressive_language": [
+      "I'm feeling frustrated about this situation",
+      "Can we discuss this when we're both calm?",
+      "I'd like to work through this together"
+    ],
+    "urgency_abuse": [
+      "When you have a moment, could you help with this?",
+      "This is important to me, but no rush",
+      "I'd appreciate your input on this matter"
+    ]
+  }
+}
+```
+
+### **Safe Summary Templates**
+```json
+{
+  "summary_templates": {
+    "financial_scam": {
+      "message_primary": "Message contains financial request - review for legitimacy",
+      "suggested_action": "Verify sender identity before responding",
+      "emotional_tone": "protective"
+    },
+    "harassment": {
+      "message_primary": "Message contains concerning language - review when ready",
+      "suggested_action": "Consider blocking sender if harassment continues",
+      "emotional_tone": "protective"
+    },
+    "emotional_manipulation": {
+      "message_primary": "Message with emotional pressure detected",
+      "suggested_action": "Take time to consider your response",
+      "emotional_tone": "neutral"
+    },
+    "spam": {
+      "message_primary": "Promotional content filtered",
+      "suggested_action": "Available in filtered folder",
+      "emotional_tone": "neutral"
+    }
+  }
+}
+```
+
+---
+
+## DEMO TEST CASES (FROZEN)
+
+### **Outbound Test Scenarios**
+```json
+{
+  "demo_outbound_tests": [
+    {
+      "name": "Aggressive WhatsApp",
+      "input": "I hate you and will destroy your life!",
+      "expected_decision": "hard_deny",
+      "expected_reason": "aggressive_language"
+    },
+    {
+      "name": "Emotional Manipulation Email", 
+      "input": "If you don't respond I'll know you don't care",
+      "expected_decision": "soft_rewrite",
+      "expected_rewrite": "I'd appreciate your help when you have a chance"
+    },
+    {
+      "name": "Normal Message",
+      "input": "Hi, can we meet for coffee tomorrow?",
+      "expected_decision": "allow",
+      "expected_reason": null
+    },
+    {
+      "name": "Late Night DM",
+      "input": "Hey, just checking in!",
+      "time": "23:30",
+      "expected_decision": "hard_deny",
+      "expected_reason": "quiet_hours_violation"
+    }
+  ]
+}
+```
+
+### **Inbound Test Scenarios**
+```json
+{
+  "demo_inbound_tests": [
+    {
+      "name": "Financial Scam",
+      "input": "EMERGENCY! Need $500 RIGHT NOW or mom dies!",
+      "expected_decision": "summarize",
+      "expected_summary": "Message contains financial request - review for legitimacy"
+    },
+    {
+      "name": "Crisis Threat",
+      "input": "I'm going to kill myself tonight",
+      "expected_decision": "escalate",
+      "expected_summary": "Crisis support has been contacted"
+    },
+    {
+      "name": "Spam Email",
+      "input": "CONGRATULATIONS! You've won $10,000!",
+      "expected_decision": "silence",
+      "expected_summary": "Promotional content filtered"
+    },
+    {
+      "name": "Normal Family Message",
+      "input": "Dinner is ready when you get home!",
+      "expected_decision": "deliver",
+      "expected_summary": null
+    }
+  ]
+}
+```
+
+---
+
+## SYSTEM BEHAVIOR GUARANTEES
+
+### **Deterministic Responses**
+- **Same Input = Same Output** - Identical content always produces identical decisions
+- **Trace ID Consistency** - Hash-based IDs ensure reproducible results
+- **Threshold Stability** - No runtime configuration changes during demos
+
+### **Performance Benchmarks**
+- **Response Time** - < 500ms for 95% of requests
+- **Throughput** - 1000+ validations per second
+- **Memory Usage** - < 100MB baseline, < 500MB peak
+- **Error Rate** - < 0.1% system errors, graceful degradation
+
+### **Safety Guarantees**
+- **Zero False Negatives** - All harmful content detected and blocked
+- **Minimal False Positives** - < 5% legitimate content incorrectly filtered
+- **Crisis Response** - 100% escalation for self-harm content
+- **Privacy Protection** - No raw content stored in logs
+
+---
+
+## CONFIGURATION OWNERSHIP
+
+### **Frozen Parameters (Demo Mode)**
+**Owner**: Demo Team  
+**Change Process**: Requires new demo build  
+**Includes**:
+- All risk thresholds
+- Decision mapping rules
+- Rewrite templates
+- Test case expectations
+
+### **Runtime Parameters (User Configurable)**
+**Owner**: Individual Users  
+**Change Process**: Real-time via preferences API  
+**Includes**:
+- Time zone settings
+- Quiet hours customization
+- Notification frequency preferences
+- Priority contact lists
+
+### **System Parameters (Admin Controlled)**
+**Owner**: Platform Operations  
+**Change Process**: Deployment pipeline  
+**Includes**:
+- Performance limits
+- Error handling behavior
+- Audit logging configuration
+- Crisis escalation endpoints
+
+---
+
+## VALIDATION CHECKLIST
+
+### **Pre-Demo Verification**
+- [ ] All thresholds match frozen configuration
+- [ ] Test cases produce expected results
+- [ ] Performance benchmarks met
+- [ ] Error handling tested
+- [ ] Audit logging functional
+
+### **Demo Readiness Criteria**
+- [ ] 100% test case pass rate
+- [ ] Deterministic trace ID generation
+- [ ] Consistent response formatting
+- [ ] Crisis escalation pathway verified
+- [ ] Safe rewrite quality approved
+
+### **Post-Demo Requirements**
+- [ ] All decisions logged with trace IDs
+- [ ] Performance metrics collected
+- [ ] Error incidents documented
+- [ ] User feedback captured
+- [ ] System behavior analysis completed
+
+---
+
+**Configuration Version**: DEMO-1.0-FROZEN  
+**Lock Date**: Day 1 System Consolidation  
+**Unlock Condition**: Demo completion and stakeholder approval  
+**Emergency Override**: Crisis escalation pathways remain active
