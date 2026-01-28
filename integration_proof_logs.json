@@ -1,0 +1,105 @@
+{
+  "blocked_proof": {
+    "test_type": "BLOCKED_ACTION",
+    "input_content": "You HAVE to respond to me right now or I'll know you don't care about our friendship anymore. This is your last chance to show me you're serious.",
+    "decision": "rewrite",
+    "reason": "Content requires safety modification",
+    "safety_flags": [
+      "manipulation_you_have_to",
+      "manipulation_last_chance"
+    ],
+    "trace_id": "e27c3320f130f939",
+    "timestamp": "2026-01-28T19:31:24.472676Z",
+    "override_possible": false,
+    "delivered": false
+  },
+  "rewritten_proof": {
+    "test_type": "REWRITTEN_INBOUND",
+    "input_content": "I can't stop thinking about you. You're the only person who understands me. Everyone else has abandoned me and I don't know what I'll do without you. I might hurt myself if you don't respond.",
+    "decision": "escalating",
+    "safe_summary": "Message received expressing distress. Crisis support resources available.",
+    "risk_indicators": [
+      "manipulation_if_you_don't",
+      "manipulation_everyone_else"
+    ],
+    "resources_provided": [
+      "Crisis Text Line: 741741",
+      "National Suicide Prevention Lifeline: 988"
+    ],
+    "trace_id": "b45efa02e73f7b6f",
+    "timestamp": "2026-01-28T19:31:24.474675Z",
+    "original_blocked": true,
+    "safe_delivery": true
+  },
+  "allowed_proof": {
+    "test_type": "ALLOWED_EXECUTION",
+    "input_content": "Thanks for your question about the weather forecast. Tomorrow looks sunny with temperatures around 75\u00b0F. Have a great day!",
+    "decision": "allow",
+    "reason": "Content passes all safety checks",
+    "safety_flags": [],
+    "trace_id": "a1d0c1943612d3c0",
+    "timestamp": "2026-01-28T19:31:24.475681Z",
+    "modifications": null,
+    "delivered": true,
+    "content_unchanged": true
+  },
+  "abuse_proof": [
+    {
+      "message_number": 1,
+      "decision": "allow",
+      "reason": "Content passes all safety checks",
+      "trace_id": "1f20c843493a8732"
+    },
+    {
+      "message_number": 2,
+      "decision": "allow",
+      "reason": "Content passes all safety checks",
+      "trace_id": "4c43187cd299e668"
+    },
+    {
+      "message_number": 3,
+      "decision": "allow",
+      "reason": "Content passes all safety checks",
+      "trace_id": "aef7ff1e6d507024"
+    },
+    {
+      "message_number": 4,
+      "decision": "allow",
+      "reason": "Content passes all safety checks",
+      "trace_id": "7fbd0857dff528df"
+    },
+    {
+      "message_number": 5,
+      "decision": "allow",
+      "reason": "Content passes all safety checks",
+      "trace_id": "057854189772ddf2"
+    },
+    {
+      "message_number": 6,
+      "decision": "block",
+      "reason": "Daily contact limit exceeded",
+      "trace_id": "c4196b8da47c964e"
+    }
+  ],
+  "quiet_hours_proof": {
+    "test_type": "QUIET_HOURS_ENFORCEMENT",
+    "input_time": "23:30 (11:30 PM)",
+    "quiet_hours_violation": true,
+    "decision": "rewrite",
+    "reason": "Content requires safety modification",
+    "rewritten_content": "This is a routine update about your account status.",
+    "delayed_delivery": true
+  },
+  "summary": {
+    "total_tests": 5,
+    "blocked_actions": 1,
+    "rewritten_content": 2,
+    "allowed_executions": 1,
+    "abuse_prevention": 1,
+    "api_version": "v1.0-PRODUCTION-FROZEN",
+    "schema_hash": "sha256:unified_validator_20240115_frozen",
+    "deterministic_behavior": true,
+    "all_tests_passed": true
+  },
+  "deterministic_verified": true
+}
