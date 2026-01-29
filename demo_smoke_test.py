@@ -15,21 +15,21 @@ class DemoSmokeTest:
         
     def run_smoke_test(self):
         """Run critical safety smoke test - must pass 100%"""
-        print("🚨 DEMO SMOKE TEST - CRITICAL SAFETY VERIFICATION")
+        print("DEMO SMOKE TEST - CRITICAL SAFETY VERIFICATION")
         print("=" * 60)
-        print("⚠️  ALL TESTS MUST PASS - ANY FAILURE BLOCKS DEMO")
+        print("ALL TESTS MUST PASS - ANY FAILURE BLOCKS DEMO")
         print()
         
         # Critical test scenarios that must never fail
         critical_tests = [
-            ("🔴 Suicide Content Escalation", self._test_suicide_escalation),
-            ("🔴 Threat Content Blocking", self._test_threat_blocking),
-            ("🔴 Financial Scam Filtering", self._test_scam_filtering),
-            ("🔴 System Error Handling", self._test_error_handling),
-            ("🔴 Input Validation", self._test_input_validation),
-            ("🔴 Safe Output Generation", self._test_safe_output),
-            ("🔴 Trace ID Generation", self._test_trace_ids),
-            ("🔴 Emergency Fallbacks", self._test_emergency_fallbacks)
+            ("Suicide Content Escalation", self._test_suicide_escalation),
+            ("Threat Content Blocking", self._test_threat_blocking),
+            ("Financial Scam Filtering", self._test_scam_filtering),
+            ("System Error Handling", self._test_error_handling),
+            ("Input Validation", self._test_input_validation),
+            ("Safe Output Generation", self._test_safe_output),
+            ("Trace ID Generation", self._test_trace_ids),
+            ("Emergency Fallbacks", self._test_emergency_fallbacks)
         ]
         
         start_time = time.time()
@@ -43,10 +43,10 @@ class DemoSmokeTest:
                 test_passed = all(result["passed"] for result in test_results)
                 
                 if test_passed:
-                    print(f"  ✅ PASSED ({len(test_results)} sub-tests)")
+                    print(f"  PASSED ({len(test_results)} sub-tests)")
                     passed_tests += 1
                 else:
-                    print(f"  ❌ FAILED")
+                    print(f"  FAILED")
                     failed_subtests = [r for r in test_results if not r["passed"]]
                     for failure in failed_subtests:
                         print(f"    - {failure['test']}: {failure['error']}")
@@ -59,7 +59,7 @@ class DemoSmokeTest:
                 total_tests += 1
                 
             except Exception as e:
-                print(f"  💥 CRITICAL ERROR: {str(e)}")
+                print(f"  CRITICAL ERROR: {str(e)}")
                 self.critical_failures.append({
                     "category": test_name,
                     "test": "test_execution",
@@ -70,7 +70,7 @@ class DemoSmokeTest:
         end_time = time.time()
         
         # Results summary
-        print(f"\n🎯 SMOKE TEST RESULTS")
+        print(f"\nSMOKE TEST RESULTS")
         print("=" * 30)
         print(f"Tests run: {total_tests}")
         print(f"Passed: {passed_tests}")
@@ -79,13 +79,13 @@ class DemoSmokeTest:
         
         # Demo readiness assessment
         if passed_tests == total_tests:
-            print(f"\n🟢 DEMO READY - All critical safety functions operational")
+            print(f"\nDEMO READY - All critical safety functions operational")
             return True
         else:
-            print(f"\n🔴 DEMO BLOCKED - Critical safety failures detected")
+            print(f"\nDEMO BLOCKED - Critical safety failures detected")
             print(f"\nCRITICAL FAILURES:")
             for failure in self.critical_failures:
-                print(f"  ❌ {failure['category']}: {failure['error']}")
+                print(f"  {failure['category']}: {failure['error']}")
             return False
     
     def _test_suicide_escalation(self):
@@ -437,7 +437,7 @@ if __name__ == "__main__":
         json.dump(results, f, indent=2)
     
     if demo_ready:
-        print(f"\n🎉 DEMO APPROVED - System ready for demonstration")
+        print(f"\nDEMO APPROVED - System ready for demonstration")
     else:
-        print(f"\n🚫 DEMO BLOCKED - Fix critical failures before proceeding")
+        print(f"\nDEMO BLOCKED - Fix critical failures before proceeding")
         exit(1)

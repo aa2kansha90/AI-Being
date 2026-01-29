@@ -73,7 +73,7 @@ def generate_demo_proof():
     
     demo_results = []
     
-    print("\\nLIVE PIPELINE EXECUTION:")
+    print(f"\\nLIVE PIPELINE EXECUTION:")
     print("-" * 80)
     
     for i, scenario in enumerate(demo_scenarios, 1):

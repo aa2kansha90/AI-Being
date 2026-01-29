@@ -1,0 +1,38 @@
+{
+  "proof_timestamp": "2026-01-29T18:57:59.405369Z",
+  "test_results": [
+    {
+      "action_id": "action_1769693279375",
+      "trace_id": "trace_e1b5cb1b0d76",
+      "enforcement_decision": "allow",
+      "execution_status": "executed",
+      "success": true
+    },
+    {
+      "action_id": "action_1769693279386",
+      "trace_id": "trace_d21efc012e4c",
+      "enforcement_decision": "allow",
+      "execution_status": "executed",
+      "success": true
+    },
+    {
+      "action_id": "action_1769693279399",
+      "trace_id": "trace_1879d601be71",
+      "enforcement_decision": "escalate",
+      "execution_status": "blocked",
+      "success": true
+    }
+  ],
+  "bypass_attempt": {
+    "attempted": true,
+    "successful": false,
+    "blocked_reason": "Invalid approval token"
+  },
+  "no_bypass_proof": {
+    "raj_gates_all_actions": true,
+    "chandresh_requires_approval": true,
+    "invalid_tokens_rejected": true,
+    "blocked_actions_never_execute": true,
+    "trace_id_continuity_maintained": true
+  }
+}

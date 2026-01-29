@@ -1,0 +1,76 @@
+[
+  {
+    "type": "INBOUND_BLOCKED",
+    "content": "You HAVE to respond right now or I'll make you regret ignoring me. This is your last chance!",
+    "decision": "block",
+    "reason": "Severe emotional manipulation or threats detected",
+    "safety_flags": [
+      "manipulation_you_have_to",
+      "manipulation_last_chance",
+      "threat_regret"
+    ],
+    "trace_id": "trace_2a3eb23aacdf",
+    "timestamp": "2026-01-29T18:57:44.750896Z"
+  },
+  {
+    "type": "INBOUND_ALLOWED",
+    "content": "Hi! Hope you're having a great day. Just wanted to check in and see how you're doing.",
+    "decision": "allow",
+    "reason": "Message passes all safety checks",
+    "safety_flags": [],
+    "trace_id": "trace_6449c8ccd8f3",
+    "timestamp": "2026-01-29T18:57:44.750896Z"
+  },
+  {
+    "type": "INBOUND_REWRITTEN",
+    "content": "I really need you to help me with this. You're the only one who understands my situation.",
+    "decision": "allow",
+    "reason": "Message passes all safety checks",
+    "safe_summary": null,
+    "safety_flags": [],
+    "trace_id": "trace_97da39589b22",
+    "timestamp": "2026-01-29T18:57:44.751915Z"
+  },
+  {
+    "type": "INBOUND_DELAYED",
+    "content": "Just a quick update on the project status for tomorrow's meeting.",
+    "decision": "delay",
+    "reason": "Quiet hours - message delayed until morning",
+    "delay_until": "2024-01-28T07:00:00Z",
+    "safety_flags": [
+      "quiet_hours"
+    ],
+    "trace_id": "trace_d2160029491f",
+    "timestamp": "2026-01-29T18:57:44.751915Z"
+  },
+  {
+    "type": "OUTBOUND_BLOCKED",
+    "content": "You really need to respond to my messages. If you don't, I'll assume you don't want my help anymore.",
+    "decision": "rewrite",
+    "reason": "Minor manipulation detected - content rewritten",
+    "safety_flags": [
+      "manipulation_if_you_don't"
+    ],
+    "trace_id": "trace_309e4271e356",
+    "timestamp": "2026-01-29T18:57:44.752895Z"
+  },
+  {
+    "type": "OUTBOUND_ALLOWED",
+    "content": "Thanks for your question! Here's the weather forecast: sunny, 75\u00b0F tomorrow. Have a great day!",
+    "decision": "allow",
+    "reason": "Action passes all safety checks",
+    "safety_flags": [],
+    "trace_id": "trace_29e4ec488c97",
+    "timestamp": "2026-01-29T18:57:44.752895Z"
+  },
+  {
+    "type": "OUTBOUND_REWRITTEN",
+    "content": "You really should check this out - it's important for your project success.",
+    "decision": "allow",
+    "reason": "Action passes all safety checks",
+    "rewritten_content": null,
+    "safety_flags": [],
+    "trace_id": "trace_be3ca6424453",
+    "timestamp": "2026-01-29T18:57:44.753897Z"
+  }
+]

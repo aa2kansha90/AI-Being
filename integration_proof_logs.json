@@ -8,8 +8,8 @@
       "manipulation_you_have_to",
       "manipulation_last_chance"
     ],
-    "trace_id": "e27c3320f130f939",
-    "timestamp": "2026-01-28T19:31:24.472676Z",
+    "trace_id": "0fd5ffbe91220dbb",
+    "timestamp": "2026-01-29T18:58:29.894536Z",
     "override_possible": false,
     "delivered": false
   },
@@ -26,8 +26,8 @@
       "Crisis Text Line: 741741",
       "National Suicide Prevention Lifeline: 988"
     ],
-    "trace_id": "b45efa02e73f7b6f",
-    "timestamp": "2026-01-28T19:31:24.474675Z",
+    "trace_id": "43edc07e3a55f0e3",
+    "timestamp": "2026-01-29T18:58:29.897019Z",
     "original_blocked": true,
     "safe_delivery": true
   },
@@ -37,8 +37,8 @@
     "decision": "allow",
     "reason": "Content passes all safety checks",
     "safety_flags": [],
-    "trace_id": "a1d0c1943612d3c0",
-    "timestamp": "2026-01-28T19:31:24.475681Z",
+    "trace_id": "a6297a981bf0d595",
+    "timestamp": "2026-01-29T18:58:29.900498Z",
     "modifications": null,
     "delivered": true,
     "content_unchanged": true
@@ -48,37 +48,37 @@
       "message_number": 1,
       "decision": "allow",
       "reason": "Content passes all safety checks",
-      "trace_id": "1f20c843493a8732"
+      "trace_id": "10999cadf05cb120"
     },
     {
       "message_number": 2,
       "decision": "allow",
       "reason": "Content passes all safety checks",
-      "trace_id": "4c43187cd299e668"
+      "trace_id": "5c8902e6512887c0"
     },
     {
       "message_number": 3,
       "decision": "allow",
       "reason": "Content passes all safety checks",
-      "trace_id": "aef7ff1e6d507024"
+      "trace_id": "40441e083bb8f6eb"
     },
     {
       "message_number": 4,
       "decision": "allow",
       "reason": "Content passes all safety checks",
-      "trace_id": "7fbd0857dff528df"
+      "trace_id": "890cb912cba6444a"
     },
     {
       "message_number": 5,
       "decision": "allow",
       "reason": "Content passes all safety checks",
-      "trace_id": "057854189772ddf2"
+      "trace_id": "b5007665d884ef2c"
     },
     {
       "message_number": 6,
       "decision": "block",
       "reason": "Daily contact limit exceeded",
-      "trace_id": "c4196b8da47c964e"
+      "trace_id": "1292b2e4ba2d5e9a"
     }
   ],
   "quiet_hours_proof": {

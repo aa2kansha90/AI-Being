@@ -1,0 +1,44 @@
+[
+  {
+    "trace_id": "trace_e1b5cb1b0d76",
+    "action_id": "action_1769693279375",
+    "stage": "enforcement",
+    "decision": "allow",
+    "timestamp": "2026-01-29T18:57:59.375225Z"
+  },
+  {
+    "trace_id": "trace_e1b5cb1b0d76",
+    "action_id": "action_1769693279375",
+    "stage": "execution",
+    "decision": "executed",
+    "timestamp": "2026-01-29T18:57:59.376224Z"
+  },
+  {
+    "trace_id": "trace_d21efc012e4c",
+    "action_id": "action_1769693279386",
+    "stage": "enforcement",
+    "decision": "allow",
+    "timestamp": "2026-01-29T18:57:59.386334Z"
+  },
+  {
+    "trace_id": "trace_d21efc012e4c",
+    "action_id": "action_1769693279386",
+    "stage": "execution",
+    "decision": "executed",
+    "timestamp": "2026-01-29T18:57:59.386334Z"
+  },
+  {
+    "trace_id": "trace_1879d601be71",
+    "action_id": "action_1769693279399",
+    "stage": "enforcement",
+    "decision": "escalate",
+    "timestamp": "2026-01-29T18:57:59.399688Z"
+  },
+  {
+    "trace_id": "trace_1879d601be71",
+    "action_id": "action_1769693279399",
+    "stage": "execution",
+    "decision": "blocked",
+    "timestamp": "2026-01-29T18:57:59.399688Z"
+  }
+]
