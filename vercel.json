@@ -8,6 +8,10 @@
     {
       "src": "health.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "safety_validator.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
@@ -18,6 +22,14 @@
     {
       "src": "/health",
       "dest": "/health.py"
+    },
+    {
+      "src": "/api/validateInbound",
+      "dest": "/safety_validator.py"
+    },
+    {
+      "src": "/api/validateAction",
+      "dest": "/safety_validator.py"
     }
   ]
 }
