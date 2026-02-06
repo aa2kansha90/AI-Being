@@ -1,1 +1,64 @@
-.vercel
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Vercel
+.vercel/
+
+# Test artifacts
+validation_logs/*.json
+validation_logs/*.csv
+*_test_results*.json
+*_proof*.json
+*_audit*.json
+*_bucket*.json
+*_verification*.json
+*_logs*.json
+*_trace*.json
+DAY*_PROOF*.json
+day*_production_*.json
+demo_smoke_test_*.json
+integration_test_results_*.json
+safety_test_logs_*.json
+
+# Logs
+*.log
+*.txt
+E2E_FLOW_LOGS.txt
+LIVE_PIPELINE_LOG.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
