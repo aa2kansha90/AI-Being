@@ -1,7 +1,29 @@
 # AI-Being Safety System
 
-## Overview
-AI-Being is an advisory safety validation system that provides risk assessment recommendations for content moderation. The system is **advisory only** and has no authority to make final decisions about content, users, or platform operations.
+## What AI-Being Is
+
+AI-Being is a **stateless content validation service** that analyzes text and returns risk assessment recommendations. It is **advisory only** with zero operational authority.
+
+### Core Identity
+- Pattern-based text analyzer
+- Risk assessment recommender  
+- Audit trail generator
+- Stateless validation service
+
+### What It Does
+- Analyzes text content (max 10KB)
+- Matches safety patterns
+- Returns ALLOW | BLOCK | REWRITE recommendations
+- Generates deterministic trace IDs
+- Provides confidence scores (0-100)
+
+### What It Does NOT Do
+- Make final decisions (advisory only)
+- Enforce actions (no authority)
+- Store data (stateless)
+- Learn or adapt (frozen patterns)
+- Manage users (no user management)
+- Control systems (isolated service)
 
 ## Key Components
 
@@ -51,14 +73,26 @@ curl -X POST https://ai-being-assistant.vercel.app/api/validateAction \
 }
 ```
 
-## Advisory Nature
-**IMPORTANT**: This system is advisory only. It:
-- ✅ Provides risk assessment recommendations
-- ✅ Offers confidence scores for decision support
-- ✅ Suggests content modifications
-- ❌ Does NOT make final decisions about content blocking
-- ❌ Does NOT have authority over platform operations
-- ❌ Does NOT replace human oversight
+## System Boundaries
+
+### Allowed Responsibilities
+1. Content analysis (text only)
+2. Risk assessment (pattern-based)
+3. Decision recommendation (advisory)
+4. Audit trail generation (trace IDs)
+5. Error handling (safe degradation)
+
+### Forbidden Capabilities
+- Content enforcement or modification
+- Data persistence or storage
+- User management or tracking
+- Learning or adaptation
+- External system control
+- Legal or compliance decisions
+- Deep semantic understanding
+- Multi-request correlation
+
+See `responsibility-boundaries.md` and `forbidden-capabilities.md` for complete lists.
 
 ## Testing Commands
 ```bash
@@ -75,22 +109,21 @@ python comprehensive_test_runner.py
 python abuse_tests.py
 ```
 
-## Documentation
+## Core Documentation
 
-### Quick Start
-- `QUICKSTART.md` - Get started in 5 minutes
-- `README.md` - This file (system overview)
+### Identity & Boundaries (Day 1)
+- `ai-being-semantics.md` - What AI-Being is and is not
+- `responsibility-boundaries.md` - Allowed and forbidden responsibilities
+- `forbidden-capabilities.md` - Explicit capability restrictions
 
-### Core Documentation
+### System Guarantees
 - `system-guarantees.md` - What system promises and doesn't promise
-- `HANDOVER.md` - Complete operational guide for system handover
+- `HANDOVER.md` - Complete operational guide
 - `final-audit-report.md` - Production readiness audit
-- `decision-semantics.md` - Formal decision semantics and thresholds
-- `authority-boundaries.md` - Proof of advisory nature and authority limits
 
-### Testing & Demo
-- `DEMO_SCENARIOS.md` - Live demo scenarios and test cases
-- `determinism-proof.md` - Determinism verification
+### Decision Logic
+- `decision-semantics.md` - Formal decision semantics
+- `authority-boundaries.md` - Advisory nature proof
 - `failure-taxonomy.md` - Failure modes and handling
 
 ## Integration Requirements
